@@ -5,27 +5,32 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private bool canMove = true;
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private GameInput gameInput;
 
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private InputAction moveAction;
+    private bool isWalking;
 
-    void Start()
+    private void Update()
     {
-        playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions.FindAction("Move");    
+        HandleMovement();
     }
 
-    void Update()
+    private void HandleMovement()
     {
-        MovePlayer();
+        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        transform.position += moveDir * moveSpeed * Time.deltaTime;
+
+        isWalking = moveDir != Vector3.zero;
+
+        float rotateSpeed = 10f;
+        if (canMove)
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
 
-    private void MovePlayer()
+
+    public bool IsWalking()
     {
-        if (!canMove) return;
-        // Debug.Log(moveAction.ReadValue<Vector2>());
-        
-        Vector2 direction = moveAction.ReadValue<Vector2>();
-        transform.position += new Vector3(direction.x, 0, direction.y) * Time.deltaTime * moveSpeed;
+        return isWalking;
     }
 }
