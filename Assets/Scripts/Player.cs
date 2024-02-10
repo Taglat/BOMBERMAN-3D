@@ -6,14 +6,29 @@ public class Player : MonoBehaviour
     [SerializeField] private bool canMove = true;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private GameInput gameInput;
+    // [SerializeField] private int countBombs = 1;
 
     private bool isWalking;
 
+    private void Start()
+    {
+        gameInput.OnPlantAction += GameInput_OnPlantAction;
+    }
     private void Update()
     {
         HandleMovement();
     }
 
+    private void GameInput_OnPlantAction(object sender, System.EventArgs e)
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit raycastHit))
+        {
+            if (raycastHit.transform.TryGetComponent(out FloorBlock floorBlock))
+            {
+                floorBlock.Plant();
+            }
+        }
+    }
     private void HandleMovement()
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
@@ -27,7 +42,6 @@ public class Player : MonoBehaviour
         if (canMove)
             transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
-
 
     public bool IsWalking()
     {
