@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+
     [SerializeField] private bool canMove = true;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private GameInput gameInput;
@@ -10,6 +12,14 @@ public class Player : MonoBehaviour
 
     private bool isWalking;
 
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("There is more than one Player instance!");
+        }
+        Instance = this;
+    }
     private void Start()
     {
         gameInput.OnPlantAction += GameInput_OnPlantAction;
