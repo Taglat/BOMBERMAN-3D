@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotateSpeed = 10f;
     [SerializeField] private GameInput gameInput;
-    // [SerializeField] private int countBombs = 1;
+    [SerializeField] private int countBombs = 1;
 
     private bool isWalking;
 
@@ -32,12 +32,22 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnPlantAction(object sender, System.EventArgs e)
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit raycastHit))
+        if (countBombs > 0)
         {
-            if (raycastHit.transform.TryGetComponent(out FloorBlock floorBlock))
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit raycastHit))
             {
-                floorBlock.Plant();
+                if (raycastHit.transform.TryGetComponent(out FloorBlock floorBlock))
+                {
+                    if (floorBlock.Plant())
+                    {
+                        countBombs--;
+                    }
+                } 
             }
+        }
+        else
+        {
+            Debug.Log("No bombs left.");
         }
     }
     private void HandleMovement()
