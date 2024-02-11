@@ -211,6 +211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Walls (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8300261385831757844, guid: aa26f296fd3dfed48a90e932fa14ec23, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -272,6 +276,10 @@ PrefabInstance:
     - target: {fileID: 2503739047473253559, guid: e9a03429593a2454a848e6a380b2ae7f, type: 3}
       propertyPath: m_Name
       value: Undestructable Blocks
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503739047473253559, guid: e9a03429593a2454a848e6a380b2ae7f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

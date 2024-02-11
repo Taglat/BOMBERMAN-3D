@@ -151,4 +151,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombPrefab: {fileID: -1070168377688788331, guid: ec6ec4dbae7f6c34da6aafa851de0d85, type: 3}
-  counterTopPoint: {fileID: 4696500150665598684}
+  floorBlockTopPoint: {fileID: 4696500150665598684}
